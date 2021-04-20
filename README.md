@@ -36,31 +36,33 @@ Requirements for the software and other tools to build, test and push
 A step by step series of examples that tell you how to get a development
 environment running
       
-    GIT Clone
+    git clone
 
 or to setup from start
 
 1. 
-    Windows
-    Visual Studio Code
 
-    Create Virtual Enviroment
-    python -m venv .venv
+Windows
+Visual Studio Code
 
-    Activate Virtual Enviroment
-    .venv\scripts\activate
+Create Virtual Enviroment
+python -m venv .venv
 
-    Install Django in Virtual Enviroment
-    pip install Django==3.2
+Activate Virtual Enviroment
+.venv\scripts\activate
 
-    Start Django Project
-    django-admin startproject psa
+Install Django in Virtual Enviroment
+pip install Django==3.2
 
-    CD into psa
-    cd psa
+Start Django Project
+django-admin startproject psa
 
-    Run dev server
-    python manage.py runserver
+CD into psa
+cd psa
+
+Run dev server
+python manage.py runserver
+
 2. 
 drop files where they need to go
 
