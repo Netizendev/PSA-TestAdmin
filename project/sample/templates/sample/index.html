@@ -1,7 +1,7 @@
 {% if latest_sample_list %}
     <ul>
     {% for sample in latest_sample_list %}
-        <li><a href="{% url 'sample:detail' sample.id %}">{{ sample.id }}</a></li>
+        <li><a href="{% url 'sample:detail' sample.id %}">{{ sample.ssn }}<br>{{ sample.created }}</a></li><br>
     {% endfor %}
     </ul>
 {% else %}
