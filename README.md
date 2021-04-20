@@ -69,10 +69,15 @@ drop files where they need to go
 ## Workflow
 
 Navigate to your project.. CD
+
 Activate virtualenv.. .venv\scripts\activate
+
 Develop
+
 Commit changes
+
 Deploy
+
 Deactivate virtualenv... deactivate
 
 ### Sample Tests
