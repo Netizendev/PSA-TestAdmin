@@ -1,0 +1,9 @@
+{% if latest_sample_list %}
+    <ul>
+    {% for sample in latest_sample_list %}
+        <li><a href="{% url 'sample:detail' sample.id %}">{{ sample.id }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No samples avalible.</p>
+{% endif %}
