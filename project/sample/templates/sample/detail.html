@@ -1,1 +1,5 @@
-{{ sample }}
+{% block content %}
+  <h3>SSN: {{ sample.ssn }}</h3>
+  Registrerat:  {{ sample.created }}
+  Resultat:  {{ sample.result }}
+{% endblock %}

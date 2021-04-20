@@ -1,13 +1,24 @@
-from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.views import generic
 
 from .models import Sample
 
-
 def index(request):
-    latest_sample_list = Sample.objects.order_by('-created')[:5]
-    context = {'latest_sample_list': latest_sample_list}
-    return render(request, 'sample/index.html', context)
+    pass
 
-def detail(request, sample_id):
-    sample = get_object_or_404(Sample, pk=sample_id)
-    return render(request, 'sample/detail.html', {'sample': sample})
+def detail(request):
+    pass
+
+class IndexView(generic.ListView):
+    template_name = 'sample/index.html'
+    context_object_name = 'latest_sample_list'
+
+    def get_queryset(self):
+        """Return the last ten published samples."""
+        return Sample.objects.order_by('-created')[:10]
+
+class DetailView(generic.DetailView):
+    model = Sample
+    template_name = 'sample/detail.html'
+
