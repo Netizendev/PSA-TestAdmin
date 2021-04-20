@@ -15,6 +15,8 @@ PSA-test kan användas vid hälsokontroller för att hitta tidig prostatacancer.
 
 Automatiserar hanteringen av PSA prov för att minska de administrativa resurserna som krävs för denna förebyggande testning
 
+Förenklar användadet
+
 
 ## Getting Started
 
