@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class SubmitSampleConfig(AppConfig):
+class SampleConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'submit_sample'
+    name = 'sample'
