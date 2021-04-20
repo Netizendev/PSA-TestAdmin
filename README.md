@@ -66,9 +66,14 @@ python manage.py runserver
 2. 
 drop files where they need to go
 
-## Running the tests
+## Workflow
 
-Explain how to run the automated tests for this system
+Navigate to your project.. CD
+Activate virtualenv.. .venv\scripts\activate
+Develop
+Commit changes
+Deploy
+Deactivate virtualenv... deactivate
 
 ### Sample Tests
 
