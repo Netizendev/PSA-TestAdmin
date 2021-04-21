@@ -1,0 +1,10 @@
+{% if latest_provsvar_list %}
+    <ul>
+    {% for provsvar in latest_provsvar_list %}
+        <li><a href="{% url 'psa:detail' provsvar.id %}">{{ provsvar.ssn }}<br>{{ provsvar.created }}</a></li><br>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No provsvar avalible.</p>
+{% endif %}
+
