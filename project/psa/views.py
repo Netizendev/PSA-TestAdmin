@@ -19,12 +19,14 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         """Visar de tio senaste provsvaren."""
         return Provsvar.objects.order_by('-created')[:10]
-
+        
 class DetailView(generic.DetailView):
     model = Provsvar
     template_name = 'psa/detail.html'
 
 class ProvsvarCreateView(generic.CreateView):
     model = Provsvar
-    fields = ['ssn']
-    template_name = 'add_patient.html'
+    fields = ['ssn', 'result']
+    template_name = 'psa/add_provsvar.html'
+    success_url = '../'
+    # success_message = "%(ssn)s was created successfully"
