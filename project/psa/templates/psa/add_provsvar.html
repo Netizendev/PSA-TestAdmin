@@ -2,6 +2,7 @@
     <div class = "form">
     <form action="." method="POST">
     {% csrf_token %}
+    {{ form.as_p }}
     <button type="submit">SUBMIT</button>
     </div>
 </form>

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -9,8 +10,6 @@ class Provsvar(models.Model):
 	
 	def __str__(self):
 		return self.created, self.ssn
-	def get_absolute_url(self):
-		return reverse('add_provsvar', kwargs={'pk': self.pk})
 
 class Patient(models.Model):
 	ssn = models.CharField(max_length=100, primary_key=True, unique=True)
