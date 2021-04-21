@@ -13,18 +13,22 @@ PSA-test kan användas vid hälsokontroller för att hitta tidig prostatacancer.
 
 # Denna tjänst
 
-Automatiserar hanteringen av PSA prov för att minska de administrativa resurserna som krävs för denna förebyggande testning
+Automatiserar hanteringen av PSA prov för att minska de administrativa resurserna som krävs för denna förebyggande testning.
 
-Förenklar användadet
+Sjukvårdspersonal registrerar patienter och provsvar i ett enkelt webbgränssnitt, därefter skickar systemet ut kallelser till provtagning.
+När provsvar återkommer registreras de av labb eller sjukvårdspersonal i systemet och provet bedöms utifrån uppsatta riktlinjer.
+
+Män < 70 år: PSA ≥ 3 µg/l
+Män 70–80 år: PSA ≥ 5 µg/l
+Män > 80 år: PSA ≥ 7 µg/l
 
 
-## Getting Started
+## Komma igång
 
-These instructions will give you a copy of the project up and running on
-your local machine for development and testing purposes. See deployment
-for notes on deploying the project on a live system.
+Utvecklingsmiljö
+Kör server
 
-### Prerequisites
+### Utvecklingsmiljö
 
 Requirements for the software and other tools to build, test and push 
 - [GIT](https://github.com/)
@@ -32,43 +36,22 @@ Requirements for the software and other tools to build, test and push
 - [Django](https://www.djangoproject.com/)
 - [SQLITE EXPLORER in VS Code](https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite)
 
-
 ### Installing
 
 A step by step series of examples that tell you how to get a development
 environment running
       
-    git clone
+	  git clone
 
-or to setup from start
+Använd sedan följande kommandon
+      
+	  Aktivera Virtual Enviroment
+	  .venv\scripts\activate
+	  
+	  Run dev server
+	  python manage.py runserver
 
-1. 
-
-Windows
-Visual Studio Code
-
-Create Virtual Enviroment
-python -m venv .venv
-
-Activate Virtual Enviroment
-.venv\scripts\activate
-
-Install Django in Virtual Enviroment
-pip install Django==3.2
-
-Start Django Project
-django-admin startproject psa
-
-CD into psa
-cd psa
-
-Run dev server
-python manage.py runserver
-
-2. 
-drop files where they need to go
-
-## Workflow
+## Workflow i projektet
 
 * Navigate to your project.. CD
 * Activate virtualenv.. .venv\scripts\activate
@@ -76,17 +59,22 @@ drop files where they need to go
 * Commit changes
 * Deactivate virtualenv... deactivate
 
-### Sample Tests
-
-Explain what these tests test and why
-
-    Give an example
-
-
-## Deployment
-
-
 ## Authors
+
+@Netizendev
+Collaborator
+
+@hugomellve
+Collaborator
+
+@juliadeli
+Collaborator
+
+@lundevaller
+Collaborator
+
+@mxmxmxn
+Collaborator
 
 
 ## Acknowledgments
