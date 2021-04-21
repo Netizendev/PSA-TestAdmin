@@ -18,6 +18,6 @@ from django.urls import include, path
 admin.autodiscover()
 
 urlpatterns = [
-    path('sample/', include('sample.urls')),
+    path('psa/', include('psa.urls')),
     path('admin/', admin.site.urls),
 ]
