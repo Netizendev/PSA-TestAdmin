@@ -9,11 +9,11 @@
         {% if latest_provsvar_list %}
             <ul>
             {% for provsvar in latest_provsvar_list %}
-                <li><a href="{% url 'psa:detail' provsvar.id %}">{{ provsvar.ssn }}<br>{{ provsvar.created }}</a></li><br>
+                <li><a href="{% url 'psa:detail' provsvar.id %}">Skapad: {{ provsvar.created }}</br>Personnummer: {{ provsvar.ssn }}</br>Resultat: {{ provsvar.result }}</a></li><br>
             {% endfor %}
             </ul>
         {% else %}
-            <p>No provsvar avalible.</p>
+            <p>Inga provsvar tillgängliga.</p>
         {% endif %}
     </div>
 </div>

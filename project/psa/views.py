@@ -30,3 +30,10 @@ class ProvsvarCreateView(generic.CreateView):
     template_name = 'psa/add_provsvar.html'
     success_url = '../'
     # success_message = "%(ssn)s was created successfully"
+
+class PatientCreateView(generic.CreateView):
+    model = Patient
+    fields = ['ssn', 'namn','gata','postort', 'postnr', 'mail','operationsdatum']
+    template_name = 'psa/add_patient.html'
+    success_url = '../'
+    # success_message = "%(ssn)s was created successfully"
