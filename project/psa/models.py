@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 
+from datetime import datetime, timedelta
+
 # Create your models here.
 
 class Provsvar(models.Model):
@@ -20,6 +22,15 @@ class Patient(models.Model):
 	mail = models.CharField(max_length=150, default='Okänd')
 	operationsdatum = models.DateField()
 	created = models.DateField(auto_now_add=True)
+	kallelsedatum = models.DateField()
+
+	def save(self, *args, **kwargs):
+		self.kallelsedatum = self.operationsdatum + timedelta(days=10)
+		super().save(*args, **kwargs)  # Call the "real" save() method.
+        
+		
+	def uppdate_kallesledatum(self,):
+		self.kallelsedatum = self.kallelsedatum + timedelta(days = 180)
 
 	def __str__(self):
 		return self.namn
