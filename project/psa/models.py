@@ -9,6 +9,7 @@ class Provsvar(models.Model):
 	created = models.DateField(auto_now_add=True)
 	ssn = models.CharField(max_length=100)
 	result = models.DecimalField(max_digits=5, decimal_places=2)
+	done = models.CharField(max_length=100, default='False')
 	
 	def __str__(self):
 		return self.ssn
