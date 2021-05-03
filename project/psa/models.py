@@ -25,12 +25,12 @@ class Patient(models.Model):
 	kallelsedatum = models.DateField()
 
 	def save(self, *args, **kwargs):
-		self.kallelsedatum = self.operationsdatum + timedelta(days=10)
+		self.kallelsedatum = self.operationsdatum + timedelta(days=180)
 		super().save(*args, **kwargs)  # Call the "real" save() method.
         
 		
-	def uppdate_kallesledatum(self,):
-		self.kallelsedatum = self.kallelsedatum + timedelta(days = 180)
+	# def uppdate_kallesledatum(self,):
+	# 	self.kallelsedatum = self.kallelsedatum + timedelta(days = 180)
 
 	def __str__(self):
 		return self.namn
