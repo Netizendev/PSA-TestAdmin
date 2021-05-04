@@ -1,14 +1,23 @@
 import sqlite3
 
-con = sqlite3.connect('db.sqlite3')
-cur = con.cursor()
-till_vc_list = []
-data = cur.execute("SELECT ssn FROM psa_provsvar where done = 'True' group by ssn having count(ssn) = 4")
-data = data.fetchall()
+def kolla_antal_provsvar():
+    con = sqlite3.connect('db.sqlite3')
+    cur = con.cursor()
 
-for row in data:
-    till_vc_list.append(row)
-    print(row)
-    cur.execute("update psa_provsvar set done = 'False' where ssn = ?", row)
+    # cur.execute("update psa_provsvar set done = 'False' where id = 26")
+    data = cur.execute("SELECT ssn FROM psa_provsvar where done = 'False' group by ssn having count(ssn) = 10")
+    data = data.fetchall()
 
-con.commit()
+    print("\nDessa personer skall ha fortsatt provtagning via vårdcentral: \n")
+
+    for row in data:
+        print(row)
+        cur.execute("update psa_provsvar set done = 'True' where ssn = ?", row)
+    print("")
+    con.commit()
+
+def main():
+    kolla_antal_provsvar()
+    
+if __name__ == "__main__":
+    main()
