@@ -30,10 +30,13 @@
     
 
     .list-group-flush{
-		margin: 5px auto;
+		margin-left: 800px;
         padding:10px;
         border-radius: 20px;
+        width: 20%;
+
     }
+
 
 </style>
 
@@ -46,9 +49,10 @@
             <a class="btn btn-info" href="{% url 'psa:add_provsvar' %}">Lägg till nytt provsvar</a>
         </div>
         <div class = list>
-            <h2>Senast inkomna provsvar</h2>
+            
             {% if latest_provsvar_list %}
                 <ul class="list-group list-group-flush">
+                    <h2>Senast inkomna provsvar</h2>
                 {% for provsvar in latest_provsvar_list %}
                     <li class="list-group-item"><a href="{% url 'psa:detail' provsvar.id %}" class="text-dark">Skapad: {{ provsvar.created }}</br>Personnummer: {{ provsvar.ssn }}</br>Resultat: {{ provsvar.result }}</a></li><br>
                 {% endfor %}
