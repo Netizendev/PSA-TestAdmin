@@ -1,5 +1,5 @@
 import sqlite3
-
+from topdf import print_to_pdf
 
 def kallelsedatum_skickabrev():
     con = sqlite3.connect('db.sqlite3')
@@ -12,7 +12,8 @@ def kallelsedatum_skickabrev():
         gata = y[1]
         postnr = y[2]
         postort = y[3]
-        adress = [gata, postnr, postort]
+        adress = [namn, gata, postnr, postort]
+        print_to_pdf('kallelse.txt','KALLELSE',adress)
         print("HÄR SKA ETT BREV KOMMA TILL")
         print(adress)
         cur.execute("update psa_patient set kallelsedatum = date('now', '+180 days') where kallelsedatum = date('now')") 
@@ -43,3 +44,4 @@ def kolla_provresultat():
         else:
             cur.execute("Insert or replace into psa_hantera (ssn, name, result) values (?,?,?)", (ssn, namn, result))
             con.commit()
+
