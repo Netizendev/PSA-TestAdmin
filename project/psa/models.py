@@ -53,3 +53,11 @@ class Kallelse(models.Model):
 	
 	def __str__(self):
 		return self.ssn
+
+class Hantera(models.Model):
+	ssn = models.CharField(max_length=100, primary_key=True)
+	name = models.CharField(max_length=150)
+	result = models.CharField(max_length=150)
+
+	def __str__(self):
+		return self.ssn
