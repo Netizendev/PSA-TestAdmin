@@ -1,10 +1,11 @@
 from fpdf import FPDF
 
-def print_to_pdf(body,letter_type,adress):
-    name = body
-    type_of_letter = letter_type
-    def text_body(name):
-        with open(name, 'rb') as fh:
+##A = Typ av brev. Provsvar (PS), Kallelse (KA), 10 årsbrev (10)
+##B = namn och adress till person i format lista [] ex. [Test Testsson, Testvägen 1, 432 Testbyn]
+##C = Dynamiskt datum. För provsvar vilket datum provet togs. För kallelse, vilket datum patienten är kallad. För 10 års brev, vilket datum patinenten är avskriven.
+def print_to_pdf(a,b,c):    
+    def text_body(body):
+        with open(body, 'rb') as fh:
             txt = fh.read().decode('utf-8')
         # Times 12
         pdf.set_font('Times', '', 12)
@@ -12,20 +13,17 @@ def print_to_pdf(body,letter_type,adress):
         pdf.multi_cell(0, 5, txt)
         # Line break
         pdf.ln()
-        # Mention in italics
-        pdf.set_font('', 'I')
-        pdf.cell(0, 5, '(end of excerpt)')
 
     class PDF(FPDF):
         def header(self):
             # Logo
-            self.image('sahlpdfloggo.png', 10, 8, 33)
+            self.image('1322.png', 10, 8, 33)
             # helvetica bold 15
             self.set_font('helvetica', 'B', 15)
             # Move to the right
             self.cell(80)
             # Title
-            self.cell(30, 10, type_of_letter, 0, 0, 'C')
+            self.cell(30, 10, letter_title, 0, 0, 'C')
             # Line break
             self.ln(20)
 
@@ -37,7 +35,16 @@ def print_to_pdf(body,letter_type,adress):
             self.set_font('helvetica', 'I', 8)
             # Page number
             self.cell(0, 10, 'Sida ' + str(self.page_no()) + '/{nb}', 0, 0, 'C')
-        
+    ##Kolla typ av brev
+    if a.lower() == 'ka':
+        body = 'kallelse.txt'
+        letter_title = 'kallelse'.upper()
+    if a.lower() == 'ps':
+        body = 'provsvar.txt'
+        letter_title = 'provsvar'.upper()
+    if a.lower() == '10':
+        body = '10year.txt'
+        letter_title = 'provtagning upphör'.upper()
     #Init class
     pdf = PDF()
     #Start print
@@ -46,16 +53,22 @@ def print_to_pdf(body,letter_type,adress):
     pdf.set_font('helvetica', 'B', 8)
     for x in adress:
         # Gå till höger
-        pdf.cell(150)
+        pdf.cell(140)
         pdf.cell(30, 10, x, 0, 0, 'L')
         pdf.ln(3)
+    # Datum
+    pdf.ln(3)
+    pdf.cell(30, 10, 'Datum för ' + letter_title.lower(), 0, 0, 'L')
+    pdf.cell(30, 10, c, 0, 0, 'L')
+    pdf.ln(3)
     # Line break
     pdf.ln(20)
     pdf.set_font('Times', '', 12)
     # Text på sidan
-    text_body(name)
+    text_body(body)
     #Output
     pdf.output('output.pdf')
 
-adress = ['Test Testsson', 'Testvägen 1', '431 31 Testbyn']
-print_to_pdf('kallelse.txt','KALLELSE',adress)
+##Testa genom följande kommandon
+# adress = ['Test Testsson', 'Testvägen 1', '432 Testbyn']
+# print_to_pdf('ka', adress, '2021-04-08')
