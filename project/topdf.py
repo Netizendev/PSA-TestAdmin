@@ -51,7 +51,7 @@ def print_to_pdf(a,b,c):
     pdf.add_page()
     # Adress
     pdf.set_font('helvetica', 'B', 8)
-    for x in adress:
+    for x in b:
         # Gå till höger
         pdf.cell(140)
         pdf.cell(30, 10, x, 0, 0, 'L')
