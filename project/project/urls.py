@@ -19,6 +19,5 @@ admin.autodiscover()
 
 urlpatterns = [
     path('', include('psa.urls')),
-    path('psa/', include('psa.urls')),
     path('admin/', admin.site.urls),
 ]
