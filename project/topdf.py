@@ -67,7 +67,7 @@ def print_to_pdf(a,b,c):
     # Text på sidan
     text_body(body)
     #Output
-    pdf.output(letter_title.lower()+'_'+b[0].lower()+'_'+c+'.pdf')
+    pdf.output('pdf/'+letter_title.lower()+'_'+b[0].lower()+'_'+c+'.pdf')
 
 ##Testa genom följande kommandon
 # adress = ['Test Testsson', 'Testvägen 1', '432 Testbyn']
