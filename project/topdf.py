@@ -1,6 +1,6 @@
 from fpdf import FPDF
 
-##A = Typ av brev. Provsvar (PS), Kallelse (KA), 10 årsbrev (10)
+##A = Typ av brev. Provsvar bra = (PS), Provsvar dåligt = (PSD). Kallelse (KA), 10 årsbrev (10)
 ##B = namn och adress till person i format lista [] ex. [Test Testsson, Testvägen 1, 432 Testbyn]
 ##C = Dynamiskt datum. För provsvar vilket datum provet togs. För kallelse, vilket datum patienten är kallad. För 10 års brev, vilket datum patinenten är avskriven.
 def print_to_pdf(a,b,c):    
@@ -41,6 +41,9 @@ def print_to_pdf(a,b,c):
         letter_title = 'kallelse'.upper()
     if a.lower() == 'ps':
         body = 'provsvar.txt'
+        letter_title = 'provsvar'.upper()
+    if a.lower() == 'psd':
+        body = 'provsvard.txt'
         letter_title = 'provsvar'.upper()
     if a.lower() == '10':
         body = '10year.txt'
