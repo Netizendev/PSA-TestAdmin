@@ -13,12 +13,17 @@ def kallelsedatum_skickabrev():
         postnr = y[2]
         postort = y[3]
         adress = [namn, gata, postnr, postort]
-        print_to_pdf('kallelse.txt','KALLELSE',adress)
+        #print_to_pdf('kallelse.txt','KALLELSE',adress)
         print("HÄR SKA ETT BREV KOMMA TILL")
         print(adress)
-        cur.execute("update psa_patient set kallelsedatum = date('now', '+180 days') where kallelsedatum = date('now')") 
+        cur.execute("update psa_patient set kallelsedatum = date('now', '+180 days') where ssn in (Select ssn from psa_patient where ssn not in (select ssn from psa_provsvar))")
         con.commit()
-
+        cur.execute("Update psa_patient set kallelsedatum = date('now', '+180 days') where ssn = (select ssn from (select psa_patient.ssn, psa_patient.kallelsedatum, psa_provsvar.result, psa_provsvar.done from psa_patient INNER JOIN \
+        psa_provsvar on psa_provsvar.ssn = psa_patient.ssn where psa_patient.kallelsedatum = date('now') and psa_provsvar.done = 'False' group by psa_patient.ssn having count(psa_provsvar.ssn) <= 4))")
+        con.commit()
+        cur.execute("Update psa_patient set kallelsedatum = date('now', '+365 days') where ssn = (select ssn from (select psa_patient.ssn, psa_patient.kallelsedatum, psa_provsvar.result, psa_provsvar.done from psa_patient INNER JOIN \
+        psa_provsvar on psa_provsvar.ssn = psa_patient.ssn where psa_patient.kallelsedatum = date('now') and psa_provsvar.done = 'False' group by psa_patient.ssn having count(psa_provsvar.ssn) > 4))")
+        con.commit()
 
 def kolla_provresultat():
     con = sqlite3.connect('db.sqlite3')
@@ -44,4 +49,10 @@ def kolla_provresultat():
         else:
             cur.execute("Insert or replace into psa_hantera (ssn, name, result) values (?,?,?)", (ssn, namn, result))
             con.commit()
+            cur.execute("Update psa_provsvar set done = 'True' where result > 0.1 and created = date('now')")
+            con.commit()
+
+
+
+
 
