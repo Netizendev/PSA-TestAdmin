@@ -17,7 +17,7 @@ def print_to_pdf(a,b,c):
     class PDF(FPDF):
         def header(self):
             # Logo
-            self.image('1322.png', 10, 8, 33)
+            self.image('1322.jpg', 10, 8, 33)
             # helvetica bold 15
             self.set_font('helvetica', 'B', 15)
             # Move to the right

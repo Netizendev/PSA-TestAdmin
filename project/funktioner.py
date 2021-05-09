@@ -4,7 +4,7 @@ from topdf import print_to_pdf
 def kallelsedatum_skickabrev():
     con = sqlite3.connect('db.sqlite3')
     cur = con.cursor()
-    cur.execute('''select namn, gata, postnr, postort from psa_patient where kallelsedatum = date('now')''')
+    cur.execute('''select namn, gata, postnr, postort, kallelsedatum from psa_patient where kallelsedatum = date('now')''')
     dagens_utskick = cur.fetchall()
 
     for x, y in enumerate(dagens_utskick):
@@ -12,10 +12,9 @@ def kallelsedatum_skickabrev():
         gata = y[1]
         postnr = y[2]
         postort = y[3]
+        datum = y[4]
         adress = [namn, gata, postnr, postort]
-        #print_to_pdf('kallelse.txt','KALLELSE',adress)
-        print("HÄR SKA ETT BREV KOMMA TILL")
-        print(adress)
+        print_to_pdf('ka',adress, datum)
         cur.execute("update psa_patient set kallelsedatum = date('now', '+180 days') where ssn in (Select ssn from psa_patient where ssn not in (select ssn from psa_provsvar))")
         con.commit()
         cur.execute("Update psa_patient set kallelsedatum = date('now', '+180 days') where ssn = (select ssn from (select psa_patient.ssn, psa_patient.kallelsedatum, psa_provsvar.result, psa_provsvar.done from psa_patient INNER JOIN \
@@ -42,17 +41,14 @@ def kolla_provresultat():
         postort = y[5]
         postnr = y[6]
         result = y[7]
-        adress = [gata, postnr, postort]
+        adress = [namn, gata, postnr, postort]
         if result <= 0.1:
-            print("HÄR SKA ETT BREV KOMMA TILL")
-            print(f"{namn.upper()} på adressen {gata.upper()} {postort} {postnr}")
+            print_to_pdf('ps',adress, created)
         else:
+            print_to_pdf('psd',adress, datum)
             cur.execute("Insert or replace into psa_hantera (ssn, name, result) values (?,?,?)", (ssn, namn, result))
             con.commit()
             cur.execute("Update psa_provsvar set done = 'True' where result > 0.1 and created = date('now')")
             con.commit()
-
-
-
 
 
