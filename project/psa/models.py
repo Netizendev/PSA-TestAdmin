@@ -30,7 +30,7 @@ def read_from_db(value):
 	else:
 		raise ValidationError(_('%(value)s is not in our database... yet!'), params={'value': value},)
 '''
-'''
+
 def read_from_db(value):
 	x = str(value)
 	print('x:', x)
@@ -40,7 +40,7 @@ def read_from_db(value):
 		print('Username already exists')
 	else:
 		raise ValidationError(_('%(value)s is not in our database... yet!'), params={'value': value},)
-'''
+
 
 def validate_ssn(value):
 	x = str(value)
