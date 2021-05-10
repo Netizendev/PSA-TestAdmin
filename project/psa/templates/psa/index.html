@@ -24,17 +24,23 @@
 	}
 
     .btn-info{
-		margin: 5px auto;
+        margin: 5px;
         padding:10px;
     }
     
 
     .list-group-flush{
-		margin: 5px auto;
-        padding:10px;
-        border-radius: 20px;
+        margin: 5px auto;
+        padding: 10px;
+        border-radius: 10px;
     }
+    
+    .row{clear:both}
 
+    .column{
+        width: 50%;
+        float: left;
+    }
 </style>
 
 <div class="center-column">
@@ -45,12 +51,25 @@
             </br>
             <a class="btn btn-info" href="{% url 'psa:add_provsvar' %}">Lägg till nytt provsvar</a>
         </div>
-        <div class = list>
+        <div class = column>
             <h2>Senast inkomna provsvar</h2>
             {% if latest_provsvar_list %}
                 <ul class="list-group list-group-flush">
                 {% for provsvar in latest_provsvar_list %}
                     <li class="list-group-item"><a href="{% url 'psa:detail' provsvar.id %}" class="text-dark">Skapad: {{ provsvar.created }}</br>Personnummer: {{ provsvar.ssn }}</br>Resultat: {{ provsvar.result }}</a></li><br>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>Inga provsvar tillgängliga.</p>
+            {% endif %}
+        </div>
+        <div class = list>
+            <h2>Hantera provsvar</h2>
+            {% if latest_provsvar_list %}
+                <ul class="list-group list-group-flush">
+                {% for provsvar in latest_provsvar_list %}
+                    <li class="list-group-item"><a href="{% url 'psa:detail' provsvar.id %}" class="text-dark">Skapad: {{ provsvar.created }}</br>Personnummer: {{ provsvar.ssn }}</br>Resultat: {{ provsvar.result }}</a>
+                        <br><a class="btn btn-info" href="{% url 'psa:add_patient' %}">Ändra</a><a class="btn btn-info" href="{% url 'psa:add_patient' %}">Ta bort</a></li><br>
                 {% endfor %}
                 </ul>
             {% else %}

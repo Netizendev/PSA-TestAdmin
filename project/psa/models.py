@@ -5,11 +5,47 @@ from datetime import datetime, timedelta
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
+import sqlite3
+con = sqlite3.connect('db.sqlite3', check_same_thread=False)
+cur = con.cursor()
 # Create your models here.
+
+'''
+def read_from_db(value):
+	x = str(value)
+	cur.execute('select exists(select 1 from psa_patient where ssn = ?)', [x])
+	[exists] = cur.fetchone()
+	
+	if exists:
+		print('Username already exists')
+	else:
+		print("Username doesn't exist")
+'''
+'''
+def read_from_db(value):
+	x = str(value)
+	cur.execute('SELECT 1 FROM psa_patient where ssn = ?', [x])
+	if cur.fetchone() is not None:
+		print('Username already exists')
+	else:
+		raise ValidationError(_('%(value)s is not in our database... yet!'), params={'value': value},)
+'''
+'''
+def read_from_db(value):
+	x = str(value)
+	print('x:', x)
+	y = cur.execute("SELECT 1 FROM psa_patient where ssn = ?", (x,))
+	print('y:', y)
+	if y:
+		print('Username already exists')
+	else:
+		raise ValidationError(_('%(value)s is not in our database... yet!'), params={'value': value},)
+'''
 
 def validate_ssn(value):
 	x = str(value)
-	if len(x) is not 10:
+	y = 10
+	if len(x) != y:
 		raise ValidationError(_('%(value)s is not a valid social security number. Please enter av valid ssn containing ten numbers without a hyphen.'), params={'value': value},)
 
 def validate_postnr(value):
@@ -18,7 +54,7 @@ def validate_postnr(value):
 
 class Provsvar(models.Model):
 	created = models.DateField(auto_now_add=True)
-	ssn = models.BigIntegerField(validators=[validate_ssn])
+	ssn = models.BigIntegerField(validators=[validate_ssn, read_from_db])
 	result = models.DecimalField(max_digits=5, decimal_places=2)
 	done = models.CharField(max_length=100, default='False')
 	
