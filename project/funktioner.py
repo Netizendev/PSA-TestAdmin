@@ -45,7 +45,7 @@ def kolla_provresultat():
         if result <= 0.1:
             print_to_pdf('ps',adress, created)
         else:
-            print_to_pdf('psd',adress, datum)
+            print_to_pdf('psd',adress, created)
             cur.execute("Insert or replace into psa_hantera (ssn, name, result) values (?,?,?)", (ssn, namn, result))
             con.commit()
             cur.execute("Update psa_provsvar set done = 'True' where result > 0.1 and created = date('now')")
