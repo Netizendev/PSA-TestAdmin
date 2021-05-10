@@ -30,7 +30,17 @@ def read_from_db(value):
 	else:
 		raise ValidationError(_('%(value)s is not in our database... yet!'), params={'value': value},)
 '''
-
+def read_from_db(value):
+    x = str(value)
+    con = sqlite3.connect('db.sqlite3')
+    cur = con.cursor()
+    cur.execute("SELECT 1 FROM psa_patient where ssn = ?", (x,))
+    y = cur.fetchall()
+    if y:
+        pass
+    else:
+        raise ValidationError(('%(value)s is not in our database... yet!'), params={'value': value},)
+'''
 def read_from_db(value):
 	x = str(value)
 	print('x:', x)
@@ -40,7 +50,7 @@ def read_from_db(value):
 		print('Username already exists')
 	else:
 		raise ValidationError(_('%(value)s is not in our database... yet!'), params={'value': value},)
-
+'''
 
 def validate_ssn(value):
 	x = str(value)
