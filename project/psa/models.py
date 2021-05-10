@@ -1,11 +1,24 @@
 from django.db import models
 from django.urls import reverse
+import sqlite3
 
 from datetime import datetime, timedelta
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
+
+def read_from_db(value):
+	x = str(value)
+	con = sqlite3.connect('db.sqlite3')
+	cur = con.cursor()
+	cur.execute("SELECT 1 FROM psa_patient where ssn = ?", (x,))
+	y = cur.fetchall()
+	if y:
+		pass
+	else:
+		raise ValidationError(_('%(value)s is not in our database... yet!'), params={'value': value},)
+
 
 def validate_ssn(value):
 	x = str(value)
@@ -18,7 +31,7 @@ def validate_postnr(value):
 
 class Provsvar(models.Model):
 	created = models.DateField(auto_now_add=True)
-	ssn = models.BigIntegerField(validators=[validate_ssn])
+	ssn = models.BigIntegerField(validators=[validate_ssn, read_from_db])
 	result = models.DecimalField(max_digits=5, decimal_places=2)
 	done = models.CharField(max_length=100, default='False')
 	
