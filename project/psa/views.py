@@ -19,14 +19,6 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         """Visar de tio senaste provsvaren."""
         return Provsvar.objects.order_by('-created')[:10]
-
-class IndexPatientView(generic.ListView):
-    template_name = 'psa/index.html'
-    context_object_name = 'patient_list'
-
-    def get_queryset(self):
-        """Lista på patienter."""
-        return Patient.objects
         
 class DetailView(generic.DetailView):
     model = Provsvar
