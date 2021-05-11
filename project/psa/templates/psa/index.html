@@ -50,7 +50,7 @@
             {% if latest_provsvar_list %}
                 <ul class="list-group list-group-flush">
                 {% for provsvar in latest_provsvar_list %}
-                    <li class="list-group-item"><a href="{% url 'psa:detail' provsvar.id %}" class="text-dark">Skapad: {{ provsvar.created }}</br>Personnummer: {{ provsvar.ssn }}</br>Resultat: {{ provsvar.result }}</a></li><br>
+                    <li class="list-group-item"><a href="{% url 'psa:detail' provsvar.id %}" class="text-dark">Skapad: {{ provsvar.created }}</br>Patient: {{ provsvar.ssn }}</br>Resultat: {{ provsvar.result }}</a></li><br>
                 {% endfor %}
                 </ul>
             {% else %}
