@@ -17,26 +17,17 @@ def read_from_db(value):
 	if y:
 		pass
 	else:
-		raise ValidationError(_('%(value)s is not in our database... yet!'), params={'value': value},)
+		raise ValidationError(_('%(value)s personnummer saknas i databasen'), params={'value': value},)
 
 
 def validate_ssn(value):
 	x = str(value)
 	if len(x) is not 10:
-		raise ValidationError(_('%(value)s is not a valid social security number. Please enter av valid ssn containing ten numbers without a hyphen.'), params={'value': value},)
+		raise ValidationError(_('%(value)s är inte ett giltigt personnummer. Ange tio siffror utan sträck..'), params={'value': value},)
 
 def validate_postnr(value):
 	if value <= 10000 or value >= 99999:
-		raise ValidationError(_('%(value)s is not a valid postal code. Please enter a valid postal code containing five numbers only.'), params={'value': value},)
-
-class Provsvar(models.Model):
-	created = models.DateField(auto_now_add=True)
-	ssn = models.BigIntegerField(validators=[validate_ssn, read_from_db])
-	result = models.DecimalField(max_digits=5, decimal_places=2)
-	done = models.CharField(max_length=100, default='False')
-	
-	def __str__(self):
-		return self.ssn
+		raise ValidationError(_('%(value)s är inte en giltig postkod. Ange en giltig postkod 5 siffror utan mellanrum.'), params={'value': value},)
 
 class Patient(models.Model):
 	ssn = models.BigIntegerField(validators=[validate_ssn],primary_key=True, unique=True)
@@ -48,24 +39,28 @@ class Patient(models.Model):
 	operationsdatum = models.DateField()
 	created = models.DateField(auto_now_add=True)
 	kallelsedatum = models.DateField()
-
-	def save(self, *args, **kwargs):
-		self.kallelsedatum = self.operationsdatum + timedelta(days=180)
-		super().save(*args, **kwargs)  # Call the "real" save() method.        
-		
-	# def uppdate_kallesledatum(self,):
-	# 	self.kallelsedatum = self.kallelsedatum + timedelta(days = 180)
+	
+	class Meta:
+		verbose_name_plural = "Patienter"
 
 	def __str__(self):
 		return self.namn
 
-class Kallelse(models.Model):
-	ssn = models.CharField(max_length=100)
-	name = models.CharField(max_length=150, default='Okänd')
-	datum = models.DateField()
+	def save(self, *args, **kwargs):
+		self.kallelsedatum = self.operationsdatum + timedelta(days=180)
+		super().save(*args, **kwargs)  # Call the "real" save() method.
+
+class Provsvar(models.Model):
+	created = models.DateField(auto_now_add=True)
+	result = models.DecimalField(max_digits=5, decimal_places=2)
+	done = models.CharField(max_length=100, default='False')
+	ssn = models.ForeignKey(Patient, default='None', verbose_name="Kopplad patient", on_delete=models.SET_DEFAULT, validators=[validate_ssn, read_from_db])
 	
 	def __str__(self):
-		return self.ssn
+		return str(self.created)
+	
+	class Meta:
+		verbose_name_plural = "Provsvar"
 
 class Hantera(models.Model):
 	ssn = models.CharField(max_length=100, primary_key=True)
