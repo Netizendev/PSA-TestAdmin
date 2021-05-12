@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.views import generic
 from django.urls import reverse_lazy
 
-from .models import Provsvar, Patient, Kallelse
+from .models import Provsvar, Patient
 
 def index(request):
     pass
