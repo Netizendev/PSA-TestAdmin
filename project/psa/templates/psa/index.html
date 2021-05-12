@@ -1,40 +1,48 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+´´´<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
 <style>
 
-	body{
-		background-color: #59a3f1;
-	}
-
-	input{
-		width: 100%;
-		padding: 10px 20px;
-		margin: 3px 0;
-		box-sizing: border-box;
-	}
-
-	.center-column{
-		width:95%;
-        height: flex;
-		margin: 20px auto;
-		padding:25px;
-		background-color: rgb(248, 185, 143);
-		border-radius: 20px;
-		box-shadow: 6px 2px 30px 0px rgba(0, 0, 0, 0.75);
-	}
-
-    .btn-info{
-		margin: 5px auto;
-        padding:10px;
+    body{
+        background-color: #59a3f1;
     }
+
+    input{
+        width: 100%;
+        padding: 10px 20px;
+        margin: 3px 0;
+        box-sizing: border-box;
+    }
+
+    .center-column{
+        width:95%;
+        height: flex;
+        margin: 20px auto;
+        padding:25px;
+        background-color: rgb(248, 185, 143);
+        border-radius: 20px;
+        box-shadow: 6px 2px 30px 0px rgba(0, 0, 0, 0.75);
+    }
+
     
 
-    .list-group-flush{
-		margin: 5px auto;
+    .btn-info{
+        margin: 5px;
         padding:10px;
-        border-radius: 20px;
     }
 
+
+    .list-group-flush{
+        margin: 5px auto;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .row{clear:both}
+
+    .column{
+        width: 50%;
+        float: left;
+    }
 </style>
 
 <div class="center-column">
@@ -45,7 +53,7 @@
             </br>
             <a class="btn btn-info" href="{% url 'psa:add_provsvar' %}">Lägg till nytt provsvar</a>
         </div>
-        <div class = list>
+        <div class = column>
             <h2>Senast inkomna provsvar</h2>
             {% if latest_provsvar_list %}
                 <ul class="list-group list-group-flush">
@@ -57,5 +65,18 @@
                 <p>Inga provsvar tillgängliga.</p>
             {% endif %}
         </div>
-    </div>
+
+        <div class = column>
+            <h2>Hantera provsvar</h2>
+            {% if latest_hantera_list %}
+                <ul class="list-group list-group-flush">
+                {% for hantera in latest_hantera_list %}
+                    <li class="list-group-item"><a href="{% url 'psa:detail' hantera.ssn %}" class="text-dark">Personnummer: {{ hantera.ssn }}</br>Resultat: {{ hantera.result }}</a>
+                        <br></li><br>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>Inga provsvar tillgängliga.</p>
+            {% endif %}
+        </div>
 </div>

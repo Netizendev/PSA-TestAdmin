@@ -5,8 +5,21 @@ from django.urls import reverse_lazy
 
 from .models import Provsvar, Patient, Kallelse
 
+
 def index(request):
-    pass
+	provsvar = Provsvar.objects.all()
+
+	form = ProvsvarForm()
+
+	if request.method == 'POST':
+		item.delete()
+		return redirect('/')
+	
+
+	context = {'provsvar':provsvar, 'form':form}
+	return render(request, 'psa/index.html', context)
+
+
 
 def detail(request):
     pass
@@ -24,6 +37,10 @@ class DetailView(generic.DetailView):
     model = Provsvar
     template_name = 'psa/detail.html'
 
+class DetailView2(generic.DetailView):
+    model = Hantera
+    template_name = 'psa/detail.html'
+
 class ProvsvarCreateView(generic.CreateView):
     model = Provsvar
     fields = ['ssn', 'result']
@@ -37,3 +54,11 @@ class PatientCreateView(generic.CreateView):
     template_name = 'psa/add_patient.html'
     success_url = '../'
     # success_message = "%(ssn)s was created successfully"
+
+class IndexView2(generic.ListView):
+    template_name = 'psa/index.html'
+    context_object_name = 'latest_hantera_list'
+
+    def get_queryset(self):
+        """Visar de tio senaste provsvaren."""
+        return Hantera.objects.order_by('result')[:100]

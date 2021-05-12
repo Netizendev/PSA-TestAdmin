@@ -32,3 +32,16 @@
     Resultat:  {{ provsvar.result }}
   {% endblock %}
 </div>
+
+<div class= "right-column">
+
+	{% block content %}
+		<h3>Personnummer: {{ hantera.ssn }}</h3>	
+		Namn: {{hantera.name}}
+		Resultat:  {{ hantera.result }}
+	{% endblock %}
+  	<!-- <form action="" method="get">
+		<button class = "btn btn-default" name="DeleteButton" value="{{ psa_hantera.ssn }}">Delete</button>
+	</form> -->
+
+</div>

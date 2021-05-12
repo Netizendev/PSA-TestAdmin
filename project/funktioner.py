@@ -56,3 +56,9 @@ def kolla_provresultat():
 
 
 
+# con = sqlite3.connect('db.sqlite3')
+# cur = con.cursor()
+# cur.execute('''Update psa_provsvar set created = date('now')''')
+# con.commit()
+
+kolla_provresultat()
