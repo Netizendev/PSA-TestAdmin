@@ -69,3 +69,6 @@ class Hantera(models.Model):
 
 	def __str__(self):
 		return self.ssn
+
+	class Meta:
+		verbose_name_plural = "Hantera"
