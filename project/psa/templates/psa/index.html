@@ -58,4 +58,19 @@
             {% endif %}
         </div>
     </div>
+    
+    <div class="box">
+        <div class = list>
+            <h2>Hantera</h2>
+            {% if hantera_list %}
+                <ul class="list-group list-group-flush">
+                {% for x in hantera_list %}
+                    <li class="list-group-item"><a href="{% url 'psa:prov' hantera.id %}" class="text-dark"></br>Namn: {{ hantera.name }}Patient: {{ hantera.ssn }}</br>Resultat: {{ hantera.result }}</a></li><br>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>Inga provsvar tillgängliga.</p>
+            {% endif %}
+        </div>
+    </div>
 </div>

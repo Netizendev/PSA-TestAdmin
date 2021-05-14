@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.views import generic
 from django.urls import reverse_lazy
 
-from .models import Provsvar, Patient
+from .models import Provsvar, Patient, Hantera
 
 def index(request):
     pass
@@ -19,10 +19,26 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         """Visar de tio senaste provsvaren."""
         return Provsvar.objects.order_by('-created')[:10]
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['hantera_list'] = Hantera.objects.all()
+        return context
+
         
-class DetailView(generic.DetailView):
+# class DetailView(generic.DetailView):
+#     model = Provsvar
+#     template_name = 'psa/detail.html'
+
+
+class ProvsvarDetail(generic.DetailView):
     model = Provsvar
     template_name = 'psa/detail.html'
+
+class HanteraDetail(generic.DetailView):
+    model = Hantera
+    template_name = 'psa/prov.html'
+
 
 class ProvsvarCreateView(generic.CreateView):
     model = Provsvar
