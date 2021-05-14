@@ -27,7 +27,15 @@
 <div class="center-column">
 
   {% block content %}
-    <h3>Namn: {{ patient.name }}</h3>
+    <h3>Namn: {{ patient.namn }}</h3></br>
+	Personnumer: {{ patient.ssn }}</br>
+	Gata: {{ patient.gata }}</br>
+	Postort: {{ patient.postort }}</br>
+	Postnr: {{ patient.postnr }}</br>
+	Mail: {{ patient.mail }}</br>
+	Operationsdatum: {{ patient.operationsdatum }}</br>
+	Skapad: {{ patient.created }}</br>
+	Kallelsedatum: {{ patient.kallelsedatum }}
   {% endblock %}
 
 

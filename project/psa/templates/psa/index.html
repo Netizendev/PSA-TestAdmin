@@ -1,3 +1,4 @@
+{% load static %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
 <style>
@@ -50,7 +51,7 @@
             {% if latest_provsvar_list %}
                 <ul class="list-group list-group-flush">
                 {% for provsvar in latest_provsvar_list %}
-                    <li class="list-group-item"><a href="{% url 'psa:provsvar_detail' provsvar.id %}" class="text-dark">Skapad: {{ provsvar.created }}</br>Patient: {{ provsvar.ssn }}</br>Resultat: {{ provsvar.result }}</br></a>{% if provsvar.result > 0 %}<img src="bones.png" alt="Hantera">{% else %}{% endif %}</li><br>
+                    <li class="list-group-item"><a href="{% url 'psa:provsvar_detail' provsvar.id %}" class="text-dark">Skapad: {{ provsvar.created }}</br>Patient: {{ provsvar.ssn }}</br>Resultat: {{ provsvar.result }}</br></a>{% if provsvar.result > 0 %}<img src="{% static "psa/hand.png" %}" alt="Hantera" />{% else %}{% endif %}</li><br>
                 {% endfor %}
                 </ul>
             {% else %}
