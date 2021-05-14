@@ -68,7 +68,7 @@ class Hantera(models.Model):
 	result = models.CharField(max_length=150)
 
 	def __str__(self):
-		return self.ssn
+		return self.name
 
 	class Meta:
 		verbose_name_plural = "Hantera"

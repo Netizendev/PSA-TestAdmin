@@ -50,11 +50,23 @@
             {% if latest_provsvar_list %}
                 <ul class="list-group list-group-flush">
                 {% for provsvar in latest_provsvar_list %}
-                    <li class="list-group-item"><a href="{% url 'psa:detail' provsvar.id %}" class="text-dark">Skapad: {{ provsvar.created }}</br>Patient: {{ provsvar.ssn }}</br>Resultat: {{ provsvar.result }}</a></li><br>
+                    <li class="list-group-item"><a href="{% url 'psa:provsvar_detail' provsvar.id %}" class="text-dark">Skapad: {{ provsvar.created }}</br>Patient: {{ provsvar.ssn }}</br>Resultat: {{ provsvar.result }}</br></a>{% if provsvar.result > 0 %}<img src="bones.png" alt="Hantera">{% else %}{% endif %}</li><br>
                 {% endfor %}
                 </ul>
             {% else %}
                 <p>Inga provsvar tillgängliga.</p>
+            {% endif %}
+        </div>
+        <div class = list>
+            <h2>Registrerade patienter</h2>
+            {% if patient_list %}
+                <ul class="list-group list-group-flush">
+                {% for patient in patient_list %}
+                <li class="list-group-item"><a href="{% url 'psa:patient_detail' patient.pk %}" class="text-dark">{{ patient.namn }}</a></li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>Inga patienter tillgängliga.</p>
             {% endif %}
         </div>
     </div>
