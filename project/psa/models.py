@@ -51,7 +51,7 @@ class Patient(models.Model):
 		super().save(*args, **kwargs)  # Call the "real" save() method.
 
 class Provsvar(models.Model):
-	created = models.DateField(auto_now_add=True)
+	created = models.DateTimeField(auto_now_add=True)
 	result = models.DecimalField(max_digits=5, decimal_places=2)
 	done = models.CharField(max_length=100, default='False')
 	ssn = models.ForeignKey(Patient, default='None', verbose_name="Kopplad patient", on_delete=models.SET_DEFAULT, validators=[validate_ssn, read_from_db])
