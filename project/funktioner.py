@@ -75,3 +75,7 @@ def kolla_antal_provsvar():
 
 
 
+# con = sqlite3.connect('db.sqlite3')
+# cur = con.cursor()
+# cur.execute('Insert or replace into psa_hantera (ssn, name, result) values (6810034931, "JUlia", 3)')
+# con.commit()
