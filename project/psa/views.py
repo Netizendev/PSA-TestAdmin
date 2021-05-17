@@ -21,11 +21,12 @@ class IndexView(generic.ListView):
         context.update({
             'latest_provsvar_list': Provsvar.objects.order_by('-created')[:10],
             'patient_list': Patient.objects.order_by('-created'),
+            'hantera_list': Hantera.objects.order_by('-ssn'),
         })
         return context
 
     def get_queryset(self):
-        return Patient.objects.all()
+        return Patient.objects.all(), Hantera.objects.all()
 
 class ProvsvarDetail(generic.DetailView):
     model = Provsvar
@@ -34,6 +35,12 @@ class ProvsvarDetail(generic.DetailView):
 class PatientDetail(generic.DetailView):
     model = Patient
     template_name = 'psa/patient.html'
+
+class HanteraDetail(generic.DeleteView):
+    model = Hantera
+    success_url = '/'
+    template_name = 'psa/hantera.html'
+    
 
 class ProvsvarCreateView(generic.CreateView):
     model = Provsvar

@@ -63,7 +63,7 @@ class Provsvar(models.Model):
 		verbose_name_plural = "Provsvar"
 
 class Hantera(models.Model):
-	ssn = models.CharField(max_length=100, primary_key=True)
+	ssn = models.BigIntegerField(validators=[validate_ssn],primary_key=True, unique=True)
 	name = models.CharField(max_length=150)
 	result = models.CharField(max_length=150)
 

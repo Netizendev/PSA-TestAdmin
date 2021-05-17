@@ -20,10 +20,10 @@ def kallelsedatum_skickabrev():
         cur.execute("update psa_patient set kallelsedatum = date('now', '+180 days') where ssn in (Select ssn from psa_patient where ssn not in (select ssn_id from psa_provsvar))")
         con.commit()
         cur.execute("Update psa_patient set kallelsedatum = date('now', '+180 days') where ssn = (select ssn from (select psa_patient.ssn, psa_patient.kallelsedatum, psa_provsvar.result, psa_provsvar.done from psa_patient INNER JOIN \
-        psa_provsvar on psa_provsvar.ssn_id = psa_patient.ssn where psa_patient.kallelsedatum = date('now') and psa_provsvar.done = 'False' group by psa_patient.ssn having count(psa_provsvar.ssn_id) <= 3))")
+        psa_provsvar on psa_provsvar.ssn_id = psa_patient.ssn where psa_patient.kallelsedatum = date('now') and psa_provsvar.done = 'False' group by psa_patient.ssn having count(psa_provsvar.ssn_id) <= 4))")
         con.commit()
         cur.execute("Update psa_patient set kallelsedatum = date('now', '+365 days') where ssn = (select ssn from (select psa_patient.ssn, psa_patient.kallelsedatum, psa_provsvar.result, psa_provsvar.done from psa_patient INNER JOIN \
-        psa_provsvar on psa_provsvar.ssn_id = psa_patient.ssn where psa_patient.kallelsedatum = date('now') and psa_provsvar.done = 'False' group by psa_patient.ssn having count(psa_provsvar.ssn_id) > 3))")
+        psa_provsvar on psa_provsvar.ssn_id = psa_patient.ssn where psa_patient.kallelsedatum = date('now') and psa_provsvar.done = 'False' group by psa_patient.ssn having count(psa_provsvar.ssn_id) > 4))")
         con.commit()
 
 def kolla_provresultat():
