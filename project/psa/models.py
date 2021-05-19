@@ -23,7 +23,7 @@ def read_from_db(value):
 def validate_ssn(value):
 	x = str(value)
 	if len(x) is not 10:
-		raise ValidationError(_('%(value)s är inte ett giltigt personnummer. Ange tio siffror utan sträck..'), params={'value': value},)
+		raise ValidationError(_('%(value)s är inte ett giltigt personnummer. Ange tio siffror utan streck..'), params={'value': value},)
 
 def validate_postnr(value):
 	if value <= 10000 or value >= 99999:
