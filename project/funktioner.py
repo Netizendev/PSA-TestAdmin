@@ -1,6 +1,6 @@
 import sqlite3
 from topdf import print_to_pdf
-import datetime
+from datetime import *
 import time
 
 def kallelsedatum_skickabrev():
@@ -32,7 +32,7 @@ def kolla_provresultat():
     cur = con.cursor()
     cur.execute('''select psa_patient.ssn, psa_patient.namn, psa_patient.mail, psa_provsvar.created, \
      psa_patient.gata, psa_patient.postort, psa_patient.postnr, psa_provsvar.result from psa_patient INNER JOIN \
-          psa_provsvar on psa_patient.ssn = psa_provsvar.ssn_id where psa_provsvar.created = date('now')''')
+          psa_provsvar on psa_patient.ssn = psa_provsvar.ssn_id where date(psa_provsvar.created) = date('now')''')
     provsvar_brev = cur.fetchall()
 
     for x, y in enumerate(provsvar_brev):
@@ -46,13 +46,15 @@ def kolla_provresultat():
         result = y[7]
         adress = [namn, gata, postnr]
         adress[-1] = str(adress[-1]) + " " + postort
+        dag = date.today()
+        dag = str(dag.strftime('%d-%m-%y'))
         if result <= 0.1:
-            print_to_pdf('ps',adress, created)
+            print_to_pdf('ps',adress, dag)
         else:
-            print_to_pdf('psd',adress, created)
+            print_to_pdf('psd',adress, dag)
             cur.execute("Insert or replace into psa_hantera (ssn, name, result) values (?,?,?)", (ssn, namn, result))
             con.commit()
-            cur.execute("Update psa_provsvar set done = 'True' where result > 0.1 and created = date('now')")
+            cur.execute("Update psa_provsvar set done = 'True' where result > 0.1 and date(created) = date('now')")
             con.commit()
 
 def kolla_antal_provsvar():
@@ -67,7 +69,7 @@ def kolla_antal_provsvar():
         gata = y[3]
         adress = [namn, gata, postnr]
         adress[-1] = str(adress[-1]) + " " + postort
-        dag = datetime.date.today()
+        dag = date.today()
         dag = str(dag.strftime('%d-%m-%y'))
         print_to_pdf('10',adress, dag)
 
@@ -80,5 +82,6 @@ while True:
     kallelsedatum_skickabrev()
     kolla_antal_provsvar()
     kolla_provresultat()
-    now = datetime.datetime.now()
+    now = datetime.now()
+    print(now)
     time.sleep(5)
